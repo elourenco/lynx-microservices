@@ -1,0 +1,22 @@
+service: lynx-services
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: dev
+  region: us-east-1
+  memorySize: 128
+
+functions:
+  LynxAuthenticationSocialFacebook:
+    handler: index.authFacebook
+    events:
+      - http:
+          path: authentication/social/facebook
+          method: get
+      - http:
+          path: authentication/social/facebook/callback
+          method: get
+
+plugins:
+  - serverless-offline
