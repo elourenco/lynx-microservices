@@ -17,6 +17,9 @@ functions:
       - http:
           path: authentication/social/facebook/callback
           method: get
+      - http:
+          path: authentication/social/facebook/failure
+          method: get
 
 plugins:
   - serverless-offline
