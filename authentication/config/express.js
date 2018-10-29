@@ -35,12 +35,4 @@ passport.deserializeUser((user, done) => done(null, user));
 APP.use(passport.initialize());
 APP.use(passport.session());
 
-APP.get('authentication/social/auth/facebook', passport.authenticate('facebook'));
-
-APP.get('authentication/social/auth/facebook/callback',
-  passport.authenticate('facebook', { failureRedirect: '/auth/facebook' }),
-  // Redirect user back to the mobile app using Linking with a custom protocol OAuthLogin
-  (req, res) => res.redirect('lynx://login?user=' + JSON.stringify(req.user)));
-
-
 module.exports = APP

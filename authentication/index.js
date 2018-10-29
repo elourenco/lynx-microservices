@@ -2,4 +2,4 @@
 
 const server = require('./src');
 
-module.exports.authFacebook = server;
+module.exports.authFacebook = async (event, context, callback) => await server(event, context);
