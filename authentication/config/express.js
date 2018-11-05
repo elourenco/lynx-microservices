@@ -5,7 +5,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
-const { facebookConfig , transformFacebookProfile } = require('./facebook')
+const GoogleStrategy  = require('passport-google-oauth').OAuth2Strategy;
+
+const { facebookConfig , transformFacebookProfile } = require('./facebook');
+const { googleConfig, transformGoogleProfile } = require('./google')
 
 const corsHeaders = {
   origin: '*',
@@ -27,6 +30,10 @@ APP.use(bodyParser.urlencoded({ extended: true }));
 
 passport.use(new FacebookStrategy(facebookConfig,
   async (accessToken, refreshToken, profile, done) => done(null, transformFacebookProfile(profile._json))
+));
+
+passport.use(new GoogleStrategy(googleConfig,
+  async (accessToken, refreshToken, profile, done) => done(null, transformGoogleProfile(profile._json))
 ));
 
 passport.serializeUser((user, done) => done(null, user));

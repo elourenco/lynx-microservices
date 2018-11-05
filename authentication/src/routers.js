@@ -1,9 +1,8 @@
 'use strict';
 
 const express = require('express');
-const router = express.Router();
 const passport = require('passport');
-const socialFacebook = require('./social/facebook');
+const router = express.Router();
 
 router.route('/authentication/social/facebook')
   .get(passport.authenticate('facebook'));
@@ -16,6 +15,7 @@ router.route('/authentication/social/facebook/callback')
     (req, res) => {
       console.log('[SocialFacebook] - callback');
       res.redirect(`lynx://login?user=${JSON.stringify(req.user)}`);
+    }
   );
 
 router.route('/authentication/social/google/callback')
@@ -23,6 +23,7 @@ router.route('/authentication/social/google/callback')
     (req, res) => {
       console.log('[Socialgoogle] - callback');
       res.redirect(`lynx://login?user=${JSON.stringify(req.user)}`);
+    }
   );
 
 module.exports = router;
