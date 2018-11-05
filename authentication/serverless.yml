@@ -8,17 +8,20 @@ provider:
   memorySize: 128
 
 functions:
-  LynxAuthenticationSocialFacebook:
-    handler: index.authFacebook
+  LynxAuthenticationSocial:
+    handler: index.authSocial
     events:
       - http:
           path: authentication/social/facebook
           method: get
       - http:
+          path: authentication/social/google
+          method: get
+      - http:
           path: authentication/social/facebook/callback
           method: get
       - http:
-          path: authentication/social/facebook/failure
+          path: authentication/social/google/callback
           method: get
 
 plugins:
