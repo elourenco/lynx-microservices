@@ -39,7 +39,7 @@ passport.use(new GoogleStrategy(googleConfig,
 ));
 
 passport.use(new OutlookStrategy(outlookConfig,
-  async (accessToken, refreshToken, params, profile, done) => done(null, transformOutlookProfile(accessToken, refreshToken, params, (profile._json))
+  async (accessToken, refreshToken, params, profile, done) => done(null, transformOutlookProfile(accessToken, refreshToken, params, profile._json))
 ));
 
 passport.serializeUser((user, done) => done(null, user));
