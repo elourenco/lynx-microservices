@@ -7,7 +7,9 @@ module.exports = {
     callbackURL: 'https://localhost:3000/authentication/social/google/callback',
 
   },
-  transformGoogleProfile: (profile) => ({
+  transformGoogleProfile: (accessToken, refreshToken, params, profile) => ({
+    accessToken,
+    refreshToken,
     name: profile.displayName,
     avatar: profile.image.url,
   })

@@ -6,7 +6,9 @@ const cors = require('cors');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook');
 const GoogleStrategy  = require('passport-google-oauth').OAuth2Strategy;
+const OutlookStrategy = require('passport-azure-ad-oauth2')
 
+const { outlookConfig, transformOutlookProfile } = require('./outlook');
 const { facebookConfig , transformFacebookProfile } = require('./facebook');
 const { googleConfig, transformGoogleProfile } = require('./google')
 
@@ -29,11 +31,15 @@ APP.use(bodyParser.urlencoded({ extended: true }));
 // APP.use(helmet());
 
 passport.use(new FacebookStrategy(facebookConfig,
-  async (accessToken, refreshToken, profile, done) => done(null, transformFacebookProfile(profile._json))
+  async (accessToken, refreshToken, params, profile, done) => done(null, transformFacebookProfile(accessToken, refreshToken, params, profile._json))
 ));
 
 passport.use(new GoogleStrategy(googleConfig,
-  async (accessToken, refreshToken, profile, done) => done(null, transformGoogleProfile(profile._json))
+  async (accessToken, refreshToken, params, profile, done) => done(null, transformGoogleProfile(accessToken, refreshToken, params, profile._json))
+));
+
+passport.use(new OutlookStrategy(outlookConfig,
+  async (accessToken, refreshToken, params, profile, done) => done(null, transformOutlookProfile(accessToken, refreshToken, params, (profile._json))
 ));
 
 passport.serializeUser((user, done) => done(null, user));

@@ -7,7 +7,7 @@ module.exports = {
     callbackURL: 'https://localhost:3000/authentication/social/facebook/callback',
     profileFields: ['id', 'name', 'displayName', 'picture', 'email']
   },
-  transformFacebookProfile: (profile) => ({
+  transformFacebookProfile: (accessToken, refreshToken, params, profile) => ({
     name: profile.name,
     avatar: profile.picture.data.url
   })
